@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, requireNativeComponent, NativeModules, View, ViewPropTypes, Image, Platform, findNodeHandle } from 'react-native';
+import FastImage from "react-native-fast-image";
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+
+
 import TextTrackType from './TextTrackType';
 import FilterType from './FilterType';
 import VideoResizeMode from './VideoResizeMode.js';
@@ -74,7 +77,7 @@ export default class Video extends Component {
     this.setNativeProps({ fullscreen: false });
   };
 
-  save = async (options?) => {
+  save = async (options) => {
     return await NativeModules.VideoManager.save(options, findNodeHandle(this._root));
   }
 
@@ -321,7 +324,7 @@ export default class Video extends Component {
           style={StyleSheet.absoluteFill}
         />
         {this.state.showPoster && (
-          <Image style={posterStyle} source={{ uri: this.props.poster }} />
+          <FastImage style={posterStyle} source={{ uri: this.props.poster, priority: FastImage.priority.normal}} resizeMode={posterStyle.resizeMode} />
         )}
       </View>
     );
